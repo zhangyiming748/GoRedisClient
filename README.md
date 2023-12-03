@@ -1,10 +1,32 @@
 # GiRedisClient
 使用官方推荐的github.com/redis/go-redis/v9
+# 文件结构
+
+```shell
+redis
+├── Dockerfile
+├── data
+└── redis
+    └── redis.conf
+```
+
+# docker file
+
+```dockerfile
+FROM redis:alpine3.18
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN apk update
+RUN apk add -U tzdata
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
+```
 
 # docker run
 
 ```shell
-docker run -v /Users/zen/container/redis/conf:/usr/local/etc/redis --cpus=1 --memory=1024M -p 6379:6379--name myredis redis redis-server /usr/local/etc/redis/redis.conf
+docker build -t redis:custom
+docker run -d -v /Users/zen/container/redis/redis:/usr/local/etc/redis --cpus=1 --memory=1024M -p 6379:6379 --name myredis redis:custom
+
 ```
 
 # redis.conf

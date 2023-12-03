@@ -13,3 +13,6 @@ func ExistsNum(pattern string) (int64, error) {
 func keys(pattern string) ([]string, error) {
 	return storage.GetRedis().Keys(ctx, pattern).Result()
 }
+func RDB() {
+	storage.GetRedis().BgSave(ctx)
+}
