@@ -24,6 +24,8 @@ jobs:
         run: pwd
       - name: ls1
         run: ls -R /home/runner/work/GoRedisClient
+      - name: vendor
+        run: go mod vendor
       - name: Save Build
         run: mkdir -p /home/runner/work/GoRedisClient/exec
       - name: Build for linux/amd64
